@@ -3,9 +3,12 @@ let recordBtnCont=document.querySelector(".record-btn-cont");
 let recordBtn=document.querySelector(".record-btn");
 let captureBtnCont=document.querySelector(".capture-btn-cont");
 let captureBtn=document.querySelector(".capture-btn");
+let filterLayer=document.querySelector(".filter-layer");
+let desiredColor="transparent";
 let recorder;
 let chunks=[];
 let recorderflag=false;
+let captureFlag=false;
 let constraints={
 video:true,
 audio:true,
@@ -95,3 +98,39 @@ function stopTimer() {
 timer.style.display="none";
 }
 console.log("hi");
+
+captureBtn.addEventListener("click",()=>{
+
+  captureFlag=!captureFlag;
+
+    let canvas=document.createElement("canvas");
+    canvas.height=video.videoHeight;
+    canvas.width=video.videoWidth;
+    let tool=canvas.getContext("2d");
+    
+
+    tool.drawImage(video,0,0,canvas.width,canvas.height);
+    tool.fillStyle = desiredColor;
+    tool.fillRect(0,0,canvas.width,canvas.height);
+    let imageUrl=canvas.toDataURL();
+    let a=document.createElement("a");
+    a.href=imageUrl;
+    a.download="image.jpg";
+    a.click();
+    document.body.appendChild(a);
+    a.remove();
+  
+})
+
+let allfilters=document.querySelectorAll(".filter");
+
+Array.from(allfilters, filterele =>{
+  filterele.addEventListener("click",()=>{
+
+    console.log("welcome to filters");
+     desiredColor= getComputedStyle(filterele).getPropertyValue("background-color");
+   filterLayer.style.backgroundColor=desiredColor;
+    console.log(desiredColor);
+    
+     })
+});

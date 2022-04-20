@@ -105,13 +105,13 @@ border: 5px solid white ;
     
 }
 .orange{
-    background-color: #ffa5008a;
+    background-color: #ffa6003d;
 }
 .brown{
-    background-color: #a52a2a80;
+    background-color: #b32d2d3b;
 }
 .pink{
-    background-color: #00800082;
+    background-color: #0080003e;
 }
 .transparent{
     background-color: transparent;
@@ -122,6 +122,6 @@ border: 5px solid white ;
     left: 0;
     height: 100vh;
     width: 100vw;
-    background-color:  #ffa5004a;
+    /* background-color:  #ffa5004a; */
     z-index: 1;
 }
