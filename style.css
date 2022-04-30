@@ -125,3 +125,15 @@ border: 5px solid white ;
     /* background-color:  #ffa5004a; */
     z-index: 1;
 }
+.material-icons{
+
+    position: absolute;
+    bottom: 7rem;
+    right: 3rem;
+    font-size: 3rem;
+    color: white;
+  z-index: 3;
+}
+.gallery:hover{
+    cursor: pointer;
+}

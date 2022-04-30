@@ -33,11 +33,23 @@ navigator.mediaDevices.getUserMedia(constraints)
   });
   recorder.addEventListener("stop",()=>{
     let blob=new Blob(chunks,{type:"video/mp4"});
-    let videoUrl=URL.createObjectURL(blob);
-    let a=document.createElement("a");
-    a.href=videoUrl;
-    a.download="stream.mp4";
-    a.click();
+
+    if(db)
+    {
+      let VideoId=shortid();
+      let dbTransaction=db.transaction("video","readwrite");
+      let videostore=dbTransaction.objectStore("video");
+      let videoentry={
+        id:`vid-${VideoId}`,
+        blobData:blob
+      }
+      videostore.add(videoentry);
+    }
+    // let videoUrl=URL.createObjectURL(blob);
+    // let a=document.createElement("a");
+    // a.href=videoUrl;
+    // a.download="stream.mp4";
+    // a.click();
   })
 })
 recordBtn.addEventListener("click",(e)=>{
@@ -113,12 +125,25 @@ captureBtn.addEventListener("click",()=>{
     tool.fillStyle = desiredColor;
     tool.fillRect(0,0,canvas.width,canvas.height);
     let imageUrl=canvas.toDataURL();
-    let a=document.createElement("a");
-    a.href=imageUrl;
-    a.download="image.jpg";
-    a.click();
-    document.body.appendChild(a);
-    a.remove();
+    
+    if(db)
+    {
+      let imageId=shortid();
+      let dbTransaction=db.transaction("image","readwrite");
+      let imagestore=dbTransaction.objectStore("image");
+      let imageentry={
+        id:`img-${imageId}`,
+        Url:imageUrl
+      }
+      imagestore.add(imageentry);
+    }
+
+    // let a=document.createElement("a");
+    // a.href=imageUrl;
+    // a.download="image.jpg";
+    // a.click();
+    // document.body.appendChild(a);
+    // a.remove();
   
 })
 
@@ -134,3 +159,7 @@ Array.from(allfilters, filterele =>{
     
      })
 });
+let gallery=document.querySelector(".gallery");
+gallery.addEventListener("click",()=>{
+location.assign("./gallery.html")
+})
